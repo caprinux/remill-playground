@@ -1,8 +1,19 @@
 #!/bin/bash
 set -e
 
-REMILL_INSTALL=/home/user/test/remill-install
-DEPS_INSTALL=/home/user/test/remill/dependencies/install
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <build-path>"
+    echo ""
+    echo "  build-path: directory containing remill and llvm build"
+    echo "  Expected layout:"
+    echo "    <build-path>/remill-install/"
+    echo "    <build-path>/remill/dependencies/install/"
+    exit 1
+fi
+
+BUILD_PATH=$1
+REMILL_INSTALL=${BUILD_PATH}/remill-install
+DEPS_INSTALL=${BUILD_PATH}/remill/dependencies/install
 
 cmake -B build -S . \
     -DCMAKE_BUILD_TYPE=Release \
